@@ -1,0 +1,339 @@
+openapi: '3.0.2'
+info:
+  title: SDT21069
+  version: '1.0'
+  description: 'API for Managing an apartment rental store' 
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: hei.mahery.2@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+tags:
+- name: "Client"
+- name: "Appartement"
+
+paths:
+     
+  /Client:
+    get:
+      tags:
+        - Client
+      summary: Get a list of Client
+      operationId: getClient
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int64
+          required: true    
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+          required: true
+      responses:
+        200:
+          description: List Client
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "400_BAD_REQUEST"
+                  message:
+                    type: string
+                    example: "Parameter missing"
+    post:
+      tags:
+        - Client
+      summary: Create new Client
+      requestBody:
+        description: Client
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:   
+                 $ref: '#/components/schemas/Newclient'
+      responses:
+        200:
+          description: course
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content: {}
+    
+
+  /Client/{id_client}:
+    get:
+      tags:
+        - Client
+      summary: Get a client by his ID
+      operationId: getClientID
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true  
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: not found
+          content: {}  
+     
+    delete:
+      tags:
+        - Client
+      summary: delete a client
+      operationId: getClientID
+      parameters:
+        - name: id_client
+          in: path
+          schema:
+            type: integer
+          required: true  
+        
+      requestBody:
+        description: Client
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Newclient'   
+      responses:
+        200:
+          description: deleted successfully
+        400:
+          description: invalid ID
+          content: {}
+        404:
+          description: not found
+          content: {} 
+    patch:
+      tags:
+        - Client
+      summary: do a patch
+      operationId: getClientID
+      parameters:
+        - name: id_client
+          in: path
+          schema:
+            type: integer
+          required: true  
+      requestBody:
+        description: Client
+        required: true
+        content:
+          application/json:
+            schema:
+                $ref: '#/components/schemas/Newclient'   
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/client'
+        400:
+          description: Bad Request
+          content: {}     
+        404:
+           description: not found
+           content: {}
+  /Appartement:
+    get:
+      tags:
+        - Appartement
+      summary: Get a list of Appartement
+      operationId: getAppart
+      parameters:
+        - name: page
+          in: query
+          schema:
+            type: integer
+            format: int64
+          required: true    
+        - name: page_size
+          in: query
+          schema:
+            type: integer
+            format: int32
+          required: true
+      responses:
+        200:
+          description: List Appartement
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appartement'
+        400:
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  code:
+                    type: string
+                    example: "400_BAD_REQUEST"
+                  message:
+                    type: string
+                    example: "Parameter missing"
+    post:
+      tags:
+        - Appartement
+      summary: Create new Appartement
+      requestBody:
+        description: Appartement
+        content:
+          application/json:
+            schema: 
+              type: array
+              items:   
+                 $ref: '#/components/schemas/Newappart'
+      responses:
+        200:
+          description: apartment
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Appartement'
+        400:
+          description: Bad Request
+          content: {}
+ 
+  /Appartement/{id_appart}:
+    get:
+      tags:
+        - Appartement
+      summary: Get an Appartement by his ID
+      operationId: getAppartID
+      parameters:
+        - name: id
+          in: path
+          schema:
+            type: integer
+          required: true  
+      responses:
+        200:
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Appartement'
+        400:
+          description: Bad Request
+          content: {}
+        404:
+          description: not found
+          content: {}    
+    delete:
+      tags:
+        - Appartement
+      summary: delete an Appartement
+      operationId: getAppartID
+      parameters:
+        - name: id_appart
+          in: path
+          schema:
+            type: integer
+          required: true  
+        
+      requestBody:
+        description: Delete 
+        required: true
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/Newappart'   
+      responses:
+        200:
+          description: deleted successfully
+        400:
+          description: invalid ID
+          content: {}
+        404:
+          description: not found
+          content: {} 
+
+components:
+  schemas:
+
+
+
+
+    client:
+      type: object
+      properties:
+        id_client:
+          type: string
+        date de naissance:
+          type: string
+        email:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/Newclient'
+      
+ 
+    Newclient:
+      type: object
+      properties:
+        nom:
+          type: string
+        prenom :
+          type: string
+
+    Newappart:
+      type: object
+      properties:
+        nb_pièces:
+          type: string
+        loyer :
+          type: string      
+
+    Appartement:
+      type: object
+      properties:
+        id_appart:
+          type: string
+      allOf:
+        - $ref: '#/components/schemas/Newappart'              
+      
